@@ -48,8 +48,8 @@
           <li><a href="#work" class="scroll-link">Resultados</a></li>
           <li><a href="#plans" class="scroll-link">Tabla de mediciones reales</a></li>
           <li><a href="#discusion" class="scroll-link">Discusión</a></li>
-          <li><a href="#team" class="scroll-link">Equioo de trabajo</a></li>
-          <li><a href="#contactUs" class="scroll-link">Contact Us</a></li>
+          <li><a href="#team" class="scroll-link">Equipo de trabajo</a></li>
+          <li><a href="#contactUs" class="scroll-link">Contactos</a></li>
         </ul>
       </div>
       <!--/.navbar-collapse--> 
@@ -219,19 +219,22 @@
   <div id="demo" class="clients">
     <div class="container"> 
       <div class="row">
-        <div class="col-md-12">
-          <div class="customNavigation"> <a class="prev"><i class="fa fa-chevron-circle-left"></i></a> <a class="next"><i class="fa fa-chevron-circle-right"></i></a> </div>
-          <div id="owl-demo" class="owl-carousel">
-            <div class="item"> <span class="helper"> <img src="images/clients/1.png" alt="client" /></span> </div>
-            <div class="item"> <span class="helper"> <img src="images/clients/2.png" alt="client" /></span> </div>
-            <div class="item"> <span class="helper"> <img src="images/clients/3.png" alt="client" /></span> </div>
+        <div class="col-md-12 text-center">
+          <!-- Navegación personalizada -->
+          <div class="customNavigation mb-4">
+            <a class="prev"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
+            <a class="next"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
+          </div>
+
+          <!-- Carousel -->
+          <div id="owl-demo" class="owl-carousel owl-theme">
+        <p>Universidad Nacional de Colombia - sede Medellin</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section id="work" class="page-section page">
   <div class="container text-center">
     <div class="heading">
       <h2>Resultados</h2>
@@ -495,38 +498,46 @@
           </ul>
 
           <h4>Diagnóstico resumido</h4>
-          <table class="results-table" role="table" aria-label="Tabla de distancias y incertidumbres">
-            <tr>
-              <th>Tipo de error</th>
-              <th>Causa principal</th>
-              <th>Efecto</th>
-              <th>Mitigación</th>
-            </tr>
-            <tr>
-              <td>Geométrico</td>
-              <td>Rotaciones altas, objetos fuera de plano</td>
-              <td>Desalineación periférica</td>
-              <td>Bundle adjustment, modelos no lineales</td>
-            </tr>
-            <tr>
-              <td>Textural</td>
-              <td>Rejillas, patrones repetidos</td>
-              <td>Matches ambiguos</td>
-              <td>Ratio test bajo, validación cruzada</td>
-            </tr>
-            <tr>
-              <td>Fotométrico</td>
-              <td>Cambios de exposición</td>
-              <td>Costuras visibles</td>
-              <td>Exposure compensation, equalización</td>
-            </tr>
-            <tr>
-              <td>Humano</td>
-              <td>Selección manual</td>
-              <td>Alta dispersión</td>
-              <td>Mediciones repetidas, snap a bordes</td>
-            </tr>
+          <table class="results-table" role="table" aria-label="Tabla de errores y mitigación">
+            <thead>
+              <tr>
+                <th>Tipo de error</th>
+                <th>Causa principal</th>
+                <th>Efecto</th>
+                <th>Mitigación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Tipo de error">Geométrico</td>
+                <td data-label="Causa principal">Rotaciones altas, objetos fuera de plano</td>
+                <td data-label="Efecto">Desalineación periférica</td>
+                <td data-label="Mitigación">Bundle adjustment, modelos no lineales</td>
+              </tr>
+
+              <tr>
+                <td data-label="Tipo de error">Textural</td>
+                <td data-label="Causa principal">Rejillas, patrones repetidos</td>
+                <td data-label="Efecto">Matches ambiguos</td>
+                <td data-label="Mitigación">Ratio test bajo, validación cruzada</td>
+              </tr>
+
+              <tr>
+                <td data-label="Tipo de error">Fotométrico</td>
+                <td data-label="Causa principal">Cambios de exposición</td>
+                <td data-label="Efecto">Costuras visibles</td>
+                <td data-label="Mitigación">Exposure compensation, equalización</td>
+              </tr>
+
+              <tr>
+                <td data-label="Tipo de error">Humano</td>
+                <td data-label="Causa principal">Selección manual</td>
+                <td data-label="Efecto">Alta dispersión</td>
+                <td data-label="Mitigación">Mediciones repetidas, snap a bordes</td>
+              </tr>
+            </tbody>
           </table>
+
 
           <h4>Interpretación física</h4>
           <p>Con la escala de 9.32 px/cm, un error de 93 px equivale a 10 cm; la incertidumbre del 20 % implica ±2 cm para medidas pequeñas (~10 cm) y ±20 cm para medidas grandes (~1 m). Esto confirma que el modelo homográfico es válido para planos interiores, pero no adecuado para reconstrucción 3D o zonas con paralaje elevado.</p>
@@ -614,110 +625,94 @@
 </section>
 
   <!--/.container--> 
-</section>
+</section> 
 <section id="contactUs" class="contact-parlex">
   <div class="parlex-back">
     <div class="container">
       <div class="row">
         <div class="heading text-center"> 
-          <!-- Heading -->
-          <h2>Contact Us</h2>
-          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered.</p>
+          <!-- Encabezado de contacto -->
+          <h2>Contacto</h2>
+          <p>Este proyecto forma parte del curso <strong>Visión por Computador</strong>.  
+          Si tienes alguna duda o sugerencia, puedes comunicarte directamente conmigo.</p>
         </div>
       </div>
       <div class="row mrgn30">
-        <form method="post" action="" id="contactfrm" role="form">
-          <div class="col-sm-12">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" title="Please enter your name (at least 2 characters)">
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" title="Please enter a valid email address">
-            </div>
-            <div class="form-group">
-              <label for="comments">Comments</label>
-              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your message…" title="Please enter your message (at least 10 characters)"></textarea>
-              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>
-            </div>
-            <div class="result"></div>
-          </div>
-        </form>
+        <div class="col-sm-12 text-center">
+          <p><strong>Consultor:</strong> Henrry Cabrera</p>
+          <p><i class="fa fa-whatsapp"></i> WhatsApp: 
+            <a href="https://wa.me/573215276602" target="_blank" style="color:#25D366;">
+              +57 321 527 6602
+            </a>
+          </p>
+          <p><i class="fa fa-envelope"></i> Email: 
+            <a href="mailto:hcabrerao">henrry.cabrera@example.com</a>
+          </p>
+        </div>
       </div>
     </div>
-    <!--/.container--> 
   </div>
 </section>
-<footer>
-<div class="container">
-        <div class="row">
-            <div class="col-md-3">
-            	<div class="col">
-                   <h4>Contact us</h4>
-                   <ul>
-                        <li>1th Avenue, New York - United States</li>
-                        <li>Phone: +22 342 2345 345 | Fax: +22 724 2342 343 </li>
-                        <li>Email: <a href="mailto:info@example.com" title="Email Us">info@example.com</a></li>
-                        <li>Skype: <a href="skype:my.test?call" title="Skype us">my-company</a></li>
-                    </ul>
-                 </div>
-            </div>
-            
-            <div class="col-md-3">
-            	<div class="col">
-                    <h4>Mailing list</h4>
-                    <p>Lorem ipsum dolor sit amet, ea eum labitur scsstie percipitoleat.</p>
-                    <form class="form-inline">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Your email address...">
-                            <span class="input-group-btn">
-                                <button class="btn" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="col-md-3">
-            	<div class="col col-social-icons">
-                    <h4>Follow us</h4>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-youtube-play"></i></a>
-                    <a href="#"><i class="fa fa-flickr"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-skype"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                </div>
-            </div>
 
-             <div class="col-md-3">
-             	<div class="col">
-                    <h4>Latest News</h4>
-                    <p>
-                    Lorem ipsum dolor labitur scsstie per sit amet, ea eum labitur scsstie percipitoleat.
-                    <br><br>
-                    <a href="#" class="btn">Get Mores!</a>
-                    </p>
-                </div>
-            </div>
+<footer>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="col">
+          <h4>Sobre el curso</h4>
+          <p>Este sitio web presenta resultados y análisis desarrollados en el curso de <strong>Visión por Computador</strong>, 
+          aplicando técnicas de procesamiento de imágenes, homografía y reconstrucción planar.</p>
         </div>
-         
+      </div>
+
+      <div class="col-md-4">
+        <div class="col">
+          <h4>Contacto directo</h4>
+          <ul>
+            <li><i class="fa fa-whatsapp"></i> WhatsApp: 
+              <a href="https://wa.me/573215276602" target="_blank">+57 321 527 6602</a></li>
+            <li><i class="fa fa-envelope"></i> Email: 
+              <a href="mailto:hcabrerao@unal.edu.co">hacberrao@unal.edu.co</a></li>
+            <li><i class="fa fa-map-marker"></i> Universidad Nacional de Colombia, Medellin</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="col col-social-icons">
+          <h4>Redes y recursos</h4>
+          <a href="https://github.com/Henrricson2" target="_blank"><i class="fa fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/henrry-cabrera-7b221b234/"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+      </div>
+
     </div>
-    
+  </div>
 </footer>
-<!--/.page-section-->
+
 <section class="copyright">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 text-center"> Copyright 2014 | All Rights Reserved -- Template by <a href="http://webThemez.com">WebThemez.com</a> </div>
+      <div class="col-sm-12 text-center"> 
+        © 2025 | Proyecto académico del curso <strong>Visión por Computador</strong><br>
+        Desarrollado por: 
+        <strong>Henrry Cabrera</strong>, 
+        <strong>Laura Sanín Colorado</strong>, 
+        <strong>Sebastián Palacio Betancur</strong>, 
+        <strong>Juan Manuel Sanchez Restrepo</strong>.<br>
+        <i class="fa fa-whatsapp"></i> 
+        <a href="https://wa.me/573215276602" target="_blank" style="color:#25D366;">
+          +57 321 527 6602
+        </a>
+      </div>
     </div>
-    <!-- / .row --> 
   </div>
 </section>
+
 <a href="#top" class="topHome"><i class="fa fa-chevron-up fa-2x"></i></a> 
+
 
 <!--[if lte IE 8]><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><![endif]--> 
 <script src="js/modernizr-latest.js"></script> 
