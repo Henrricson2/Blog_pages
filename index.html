@@ -47,7 +47,8 @@
            <li><a href="#Metodologia" class="scroll-link">Metodologia</a></li>
           <li><a href="#work" class="scroll-link">Resultados</a></li>
           <li><a href="#plans" class="scroll-link">Tabla de mediciones reales</a></li>
-          <li><a href="#team" class="scroll-link">Team</a></li>
+          <li><a href="#discusion" class="scroll-link">Discusión</a></li>
+          <li><a href="#team" class="scroll-link">Equioo de trabajo</a></li>
           <li><a href="#contactUs" class="scroll-link">Contact Us</a></li>
         </ul>
       </div>
@@ -55,7 +56,7 @@
     </nav>
     <!--/.navbar--> 
   </div>
-  <!--/.container--> 
+  <!--/.container-->
 </header>
 <!--/.header-->
 <div id="#top"></div>
@@ -427,10 +428,135 @@
 	
 </section>
 
-<!-- TABLA -->
- <!-- TABLA -->
+<!-- Seccion-->
 
+<!-- DISCUSIÓN -->
+<section id="discusion" class="page-section colord">
+  <div class="container">
+    <div class="row">
+      <div class="text-align: justify">
+        <div class="b1">
+          <h3>DISCUSIÓN</h3>
 
+          <h4>Calidad de las imágenes de entrada</h4>
+          <p>Las tres fotos del comedor muestran un solapamiento adecuado, con variaciones notables en ángulo y punto de vista. La tercera imagen incluye elementos no coplanares (plantas, columnas), lo que limita la validez de una homografía global. Estas condiciones permiten una fusión coherente en la zona central (mesa, cuadro, ventanales) y errores esperables en periferias.</p>
+
+          <h4>Desempeño de detectores</h4>
+          <p>SIFT (≈61.9k keypoints) destaca por su cobertura uniforme y repetitividad; AKAZE (≈18.3k) logra buen equilibrio entre densidad y estabilidad; ORB (≈2k) es veloz pero sensible a iluminación y contraste. SIFT es el más adecuado para escenas estáticas con variaciones de rotación/escala, mientras que ORB podría usarse en aplicaciones en tiempo real.</p>
+          <p>Se recomienda:</p>
+          <ul style="margin-left: 40px;">
+            <li>En ORB, aumentar <code>nfeatures</code> y activar <code>WTA_K=4</code> y <code>HARRIS_SCORE</code>.</li>
+            <li>En SIFT, ajustar <code>contrastThreshold</code> (0.03–0.06) para filtrar keypoints poco definidos.</li>
+          </ul>
+
+          <h4>Matching y robustez geométrica</h4>
+          <p>Los emparejamientos 1↔2 y 2↔3 alcanzan ~60 % de inliers tras RANSAC, mostrando coherencia geométrica. Los outliers se concentran en objetos fuera del plano (plantas, sombras). Se recomienda afinar:</p>
+          <ul style="margin-left: 40px;">
+            <li><code>ratio test = 0.7–0.8</code> según textura repetitiva.</li>
+            <li>Validación cruzada (cross-check).</li>
+            <li>Umbral RANSAC entre <code>3–6 px</code> para balancear precisión y estabilidad.</li>
+          </ul>
+
+          <h4>Validación sintética</h4>
+          <p>El conjunto sintético (rotaciones ±15–20°, traslaciones ±50 px, escalas 0.95–1.05) verificó la precisión del pipeline.</p>
+          <p><strong>Resultados:</strong></p>
+          <ul style="margin-left: 40px;">
+            <li>RMSE ≈ 93 px (≈ 10 cm con escala 9.32 px/cm).</li>
+            <li>Inliers ≈ 61.5 %.</li>
+            <li>Error máximo por esquina: 180–236 px (~20–25 cm), concentrado en bordes derechos.</li>
+          </ul>
+          <p>El error crece en zonas con baja densidad de puntos, consistente con la teoría de soporte geométrico parcial.</p>
+
+          <h4>Fusión y blending</h4>
+          <p>El mosaico resultante presenta continuidad central (mesa/cuadro/ventanas) y mínima distorsión lateral. El método de feather blending suaviza las transiciones, pero persisten leves diferencias fotométricas.</p>
+          <p><strong>Posibles mejoras:</strong></p>
+          <ul style="margin-left: 40px;">
+            <li>Exposure compensation para igualar luminancia entre imágenes.</li>
+            <li>Graph-cut seam finding para optimizar ubicación de costuras.</li>
+            <li>Multiband blending con pirámides Laplacianas en bordes de alto contraste.</li>
+            <li>Proyección cilíndrica si se desea un panorama tipo 360°.</li>
+          </ul>
+
+          <h4>Calibración y medición</h4>
+          <p>Referencias: cuadro (117 cm) y mesa (161.1 cm). Escala promedio: 9.32 px/cm.</p>
+          <p>Mediciones: 5 elementos con incertidumbre media 20.08 %.</p>
+          <p><strong>Fuentes de error:</strong></p>
+          <ul style="margin-left: 40px;">
+            <li>Selección manual de puntos.</li>
+            <li>No coplanaridad local.</li>
+            <li>Variación de iluminación.</li>
+          </ul>
+          <p><strong>Para reducir incertidumbre a 5–10 %:</strong></p>
+          <ul style="margin-left: 40px;">
+            <li>Incorporar más referencias métricas.</li>
+            <li>Repetir mediciones ≥ 5 veces y promediar.</li>
+            <li>Localizar bordes subpíxel con detección Canny + ajuste lineal.</li>
+            <li>Rectificar el plano mediante homografía antes de medir.</li>
+          </ul>
+
+          <h4>Diagnóstico resumido</h4>
+          <table class="results-table" role="table" aria-label="Tabla de distancias y incertidumbres">
+            <tr>
+              <th>Tipo de error</th>
+              <th>Causa principal</th>
+              <th>Efecto</th>
+              <th>Mitigación</th>
+            </tr>
+            <tr>
+              <td>Geométrico</td>
+              <td>Rotaciones altas, objetos fuera de plano</td>
+              <td>Desalineación periférica</td>
+              <td>Bundle adjustment, modelos no lineales</td>
+            </tr>
+            <tr>
+              <td>Textural</td>
+              <td>Rejillas, patrones repetidos</td>
+              <td>Matches ambiguos</td>
+              <td>Ratio test bajo, validación cruzada</td>
+            </tr>
+            <tr>
+              <td>Fotométrico</td>
+              <td>Cambios de exposición</td>
+              <td>Costuras visibles</td>
+              <td>Exposure compensation, equalización</td>
+            </tr>
+            <tr>
+              <td>Humano</td>
+              <td>Selección manual</td>
+              <td>Alta dispersión</td>
+              <td>Mediciones repetidas, snap a bordes</td>
+            </tr>
+          </table>
+
+          <h4>Interpretación física</h4>
+          <p>Con la escala de 9.32 px/cm, un error de 93 px equivale a 10 cm; la incertidumbre del 20 % implica ±2 cm para medidas pequeñas (~10 cm) y ±20 cm para medidas grandes (~1 m). Esto confirma que el modelo homográfico es válido para planos interiores, pero no adecuado para reconstrucción 3D o zonas con paralaje elevado.</p>
+
+          <h4>Propuestas de mejora</h4>
+          <ul style="margin-left: 40px;">
+            <li>Integrar <code>GraphCutSeamFinder</code> y <code>ExposureCompensator</code> del módulo <code>cv2.detail</code>.</li>
+            <li>Añadir calibración radial del lente.</li>
+            <li>Incorporar control automático de exposición en la captura.</li>
+            <li>Ampliar validación sintética con ruido gaussiano y desenfoque para probar robustez.</li>
+            <li>Implementar <em>bundle adjustment</em> en Python o COLMAP para análisis 3D futuro.</li>
+          </ul>
+
+          <h4>Organizar</h4>
+          <ul style="margin-left: 40px;">
+            <li><strong>Desempeño de detectores:</strong> SIFT ofrece la mejor relación entre densidad y estabilidad; ORB destaca por eficiencia pero reduce correspondencias válidas.</li>
+            <li><strong>Precisión geométrica:</strong> el modelo homográfico reconstruye correctamente el plano de la escena, con errores esperables por paralaje y variación de punto de vista.</li>
+            <li><strong>Blending:</strong> el método feather logró una transición suave entre imágenes, sin artefactos notables.</li>
+            <li><strong>Medición:</strong> la calibración manual permitió obtener escalas coherentes, aunque la incertidumbre indica sensibilidad a la selección de puntos.</li>
+            <li><strong>Limitaciones:</strong> las principales fuentes de error son la falta de control de iluminación, pequeñas deformaciones por perspectiva no coplanar y la ausencia de puntos de control automáticos.</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FIN DISCUSIÓN -->
+
+ <!-- Seccion -->
 
 
 <section id="team" class="page-section">
@@ -448,8 +574,8 @@
             <div class="member-img">
               <img src="images/photo-1.jpg" alt="John Doe">
             </div>
-            <h4>John Doe</h4>
-            <span class="pos">CEO</span>
+            <h4>Henrry Uribe Cabrera Ordoñez</h4>
+            <span class="pos">Estudiantes de maestria</span>
           </div>
         </div>
 
@@ -458,8 +584,8 @@
             <div class="member-img">
               <img src="images/photo-2.jpg" alt="Larry Doe">
             </div>
-            <h4>Larry Doe</h4>
-            <span class="pos">Art Director</span>
+            <h4>Sebastián Palacio Betancur</h4>
+            <span class="pos">Estudiante de maestria</span>
           </div>
         </div>
 
@@ -468,8 +594,8 @@
             <div class="member-img">
               <img src="images/photo-3.jpg" alt="Ranith Kays">
             </div>
-            <h4>Ranith Kays</h4>
-            <span class="pos">Manager</span>
+            <h4>Juan Manuel Sanchez Restrepo</h4>
+            <span class="pos">Estudiante de maestria</span>
           </div>
         </div>
 
@@ -478,8 +604,8 @@
             <div class="member-img">
               <img src="images/photo-4.jpg" alt="Joan Ray">
             </div>
-            <h4>Joan Ray</h4>
-            <span class="pos">Creative</span>
+            <h4>Laura Sanín Colorado</h4>
+            <span class="pos">Estudiante de maestria</span>
           </div>
         </div>
       </div>
